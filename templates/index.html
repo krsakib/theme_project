@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% load  mezzanine_tags blog_tags i18n %}
+
+{% block meta_title %}{% trans "Home" %}{% endblock %}
+
+{% block title %}
+{% trans "Home" %}
+{% endblock %}
+
+{%block banner %}
+<tr>
+	<td colspan="4">
+	<div id="slider">
+		<div id="wowslider-container2">
+			<div class="ws_images">
+				<ul>
+					<!--Picture Size = 975px*360px-->
+					<li><img src="{{STATIC_URL}}images/picture8.jpg" alt="" title="Muslim Professionals Forum" id="wows13_6"/>
+					</li>
+					<li><img src="{{STATIC_URL}}images/picture9.jpg" alt="" title="Muslim Professionals Forum" id="wows13_7"/>
+					</li>
+					<li><img src="{{STATIC_URL}}images/picture10.jpg" alt="" title="Muslim Professionals Forum" id="wows13_8"/>
+					</li>
+					<li><img src="{{STATIC_URL}}images/picture11.jpg" alt="" title="Muslim Professionals Forum" id="wows13_9"/>
+					</li>
+					<li><img src="{{STATIC_URL}}images/picture12.jpg" alt="" title="Muslim Professionals Forum" id="wows13_10"/>
+					</li>
+					<li><img src="{{STATIC_URL}}images/picture13.jpg" alt="" title="Muslim Professionals Forum" id="wows13_11"/>
+					</li>
+					<li><img src="{{STATIC_URL}}images/picture7.jpg" alt="" title="Muslim Professionals Forum" id="wows13_0"/>
+					</li>
+					<li><img src="{{STATIC_URL}}images/picture2.jpg" alt="" title="Muslim Professionals Forum" id="wows13_1"/>
+					</li>
+					<li><img src="{{STATIC_URL}}images/picture4.jpg" alt="" title="Muslim Professionals Forum" id="wows13_2"/>
+					</li>
+					<li><img src="{{STATIC_URL}}images/picture5.jpg" alt="" title="Muslim Professionals Forum" id="wows13_3"/>
+					</li>
+					<li><img src="{{STATIC_URL}}images/picture6.jpg" alt="" title="Muslim Professionals Forum" id="wows13_4"/>
+					</li>
+					<li><img src="{{STATIC_URL}}images/picture3.jpg" alt="" title="Muslim Professionals Forum" id="wows13_5"/>
+					</li>
+					
+				</ul>
+			</div>
+
+			<div class="ws_shadow">
+
+			</div>
+		</div>
+		<script type="text/javascript" src="{{STATIC_URL}}js/wowslider.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/script.js"></script>
+	</div></td>
+</tr>
+{% endblock%}
+
+{% block content %}
+<!--Container-->
+<tr>
+	<td colspan="4" valign="middle">
+	<div id="container">
+		<div id="container">
+			<div id="contentheader">
+				<p>
+					HOME OF Muslim Professionals in the UK
+				</p>
+				
+			</div>
+			
+			<div id="content">
+				<div class="homepagecontent" id="1">
+					
+                	<div class="thumbpic"><img src="{{STATIC_URL}}images/invitation_card.jpg" width="600px" alt="Invitatio Card" title="Invitation to the Seminar:" /></div>					
+					<div class="thumbpic"><img src="{{STATIC_URL}}images/invitation_card.jpg" width="600px" alt="Invitatio Card" title="Invitation to the Seminar:" /></div>
+					{% blog_recent_posts 10 as recent_posts %}
+					{% if recent_posts %}
+					<ul class="unstyled recent-posts">
+						{% for recent_post in recent_posts %}
+						<li>
+							<a href="{{ recent_post.get_absolute_url }}">{{ recent_post.title }}</a>
+						</li>
+
+						{% editable recent_post.title recent_post.publish_date %}
+						<h2><a href="{{ recent_post.get_absolute_url }}">{{ recent_post.title }}</a></h2>
+						<h6> {% trans "Posted by" %}:
+						{% with recent_post.user as author %} <a href="{% url blog_post_list_author author %}">{{ author.get_full_name|default:author.username }}</a> {% endwith %}
+						{% if recent_post.category_list %}
+						{{ recent_post.publish_date|timesince }} {% trans "ago" %} </h6>
+						{% endif %}
+						{% endeditable %}
+
+						{% if recent_post.featured_image %}
+						<img class="featured-thumb" src="{{ MEDIA_URL }}{% thumbnail recent_post.featured_image 90 90 %}">
+						{% endif %}
+
+						{% editable recent_post.content %}
+						{{ recent_post.description_from_content|safe }}
+						{% endeditable %}
+
+						{% endfor %}
+					</ul>
+					{% endif %}
+
+				</div>
+			</div>
+		</div>
+	</td>
+</tr>
+<!--/Container-->
+
+{% endblock %}

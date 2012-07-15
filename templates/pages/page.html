@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load mezzanine_tags blog_tags keyword_tags %}
+
+{% block meta_title %}{{ page.title }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% keywords_for page as keywords %}
+{% for keyword in keywords %}
+{% if not forloop.first %}, {% endif %}
+{{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block title %}
+{% editable page.title %}{{ page.title }}{% endeditable %}
+{% endblock %}
+
+{% block content %}
+<!--Container-->
+<!--Page-->
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/pagestyle.css" />
+<!--/Page-->
+<tr>
+
+	<td colspan="3" valign="top">
+	<div id="container">
+
+		<div id="contentheader">
+			<p>
+				{{page.title}}
+			</p>
+		</div>
+		<div id="content">
+			{% block main %}
+			{% endblock main %}
+		</div>
+
+	</div></td>
+
+	<td valign="top"><!--Sidebar-->
+	<div id="sidebar">
+		<div class="sidebarelement">
+			<div class="sidebarcontent">
+				<!--<div id="getconnected">
+				<div class="sidebarheader">
+				<p>Connect</p>
+				</div>
+				<div class="connects" id="facebook">
+				<a href=""><img src="{{STATIC_URL}}images/getconnected_fb.png" /> Facebook</a>
+				<p>Name</p>
+				</div>
+				<div class="connects" id="twitter">
+				<a href=""><img src="{{STATIC_URL}}images/getconnected_twitter.png" /> Twitter</a>
+				<p>Name</p>
+				</div>
+
+				</div>
+				<div id="whatsrecent">
+					<p>
+						WHAT'S RECENT
+					</p>
+					{% block right_panel %}
+					{% blog_recent_posts 10 as recent_posts %}
+					{% if recent_posts %}
+					<ul class="unstyled recent-posts">
+
+						{% for blog_post in recent_posts %}
+						{% ifequal blog_post.keywords_string "roboshepherd" %}
+						<li>
+							<a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a>
+						</li>
+						{% endifequal %}
+						{% endfor %}
+					</ul>
+					{% endif %}
+
+					{% endblock %} -->
+
+				</div>
+			</div>
+		</div>
+	</div></td>
+	<!--/Sidebar-->
+</tr>
+<!--/Container-->
+
+{% endblock %}

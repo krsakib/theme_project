@@ -1,0 +1,10 @@
+{% load pages_tags i18n %}
+
+<li><a href="/">Home</a></li>
+
+{% for page in page_branch %}
+<li class="fatmenu">
+    	<a href="{% url page page.slug %}">{{ page.title }}</a>
+</li>
+{% endfor %}
+
